@@ -1,0 +1,1 @@
+declare module '@noir-lang/barretenberg/dest/client_proofs/generic_proof/standard_example_prover';

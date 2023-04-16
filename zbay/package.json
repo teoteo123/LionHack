@@ -1,0 +1,64 @@
+{
+  "name": "zk_auction_minimal",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.16",
+    "@noir-lang/aztec_backend": "^0.1.0-0c3b2f2",
+    "@noir-lang/barretenberg": "github:noir-lang/barretenberg#39a1547875f941ef6640217a42d8f34972425c97",
+    "@noir-lang/noir_wasm": "^0.3.2-bcdfd526",
+    "@noir-lang/noir-source-resolver": "^1.1.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.23",
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "circomlibjs": "^0.1.7",
+    "dotenv": "^16.0.3",
+    "firebase": "^9.19.1",
+    "pedersen-fast": "^0.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "autoprefixer": "^10.4.14",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.13.1",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.1",
+    "vite": "^4.2.1"
+  }
+}
