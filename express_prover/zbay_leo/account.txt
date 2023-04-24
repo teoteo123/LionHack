@@ -1,0 +1,8 @@
+
+
+✅ Account keys successfully generated:
+
+ Private Key  APrivateKey1zkp9Ghs6YtJF7rBzpqdtt2mbkEomfTtfUpk5wniaAcjJ1Pa
+ View Key  AViewKey1rHgPwhZwswGWMtZTVP1sQaDTdFZcQFy5dfYHvYPNqVdT
+ Address  aleo18fyk2hzy7fxh7tkwu2m274jcmu4l7ftd8uvp8cwc2y24frzsggyq44hcc9
+

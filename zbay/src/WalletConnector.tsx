@@ -74,14 +74,14 @@ export default function WalletConnector() {
               params: [
                 {
                   chainId: testnetChainId,
-                  chainName: 'Goerli',
+                  chainName: 'Sepolia',
                   nativeCurrency: {
-                    name: 'GoerliETH',
-                    symbol: 'GoerliETH',
+                    name: 'SepoliaETH',
+                    symbol: 'SepoliaETH',
                     decimals: 18
                   },
-                  rpcUrls: ['https://goerli.infura.io/v3/'],
-                  blockExplorerUrls: ['https://goerli.etherscan.io']
+                  rpcUrls: ['https://sepolia.infura.io/v3/'],
+                  blockExplorerUrls: ['https://sepolia.etherscan.io']
                 },
               ],
             });
@@ -152,7 +152,7 @@ export default function WalletConnector() {
 
   return (
     <div className='absolute top-5 right-5'>
-      {(currentAccount && correctChain) ? <AccountFab /> : (currentAccount ? <WrongNetworkFab /> : <ConnectWalletFab />)}
+      {(currentAccount) ? <AccountFab /> : (currentAccount ? <WrongNetworkFab /> : <ConnectWalletFab />)}
     </div>
   )
 }

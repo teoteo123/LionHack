@@ -1,8 +1,7 @@
 import WalletConnector from './WalletConnector'
-import {getContract, generate_proof} from './components/contractInterface'
+import {getContract, generate_proof, generateAleoResponse} from './components/contractInterface'
 import useInput from './hooks/useInput'
 import {useEffect, useState} from 'react'
-import Loading from './components/Loading'
 import Button from './components/Button'
 import { Input } from './components/Input'
 import { placeContractBid, randomSecret } from './components/contractInterface'
@@ -22,7 +21,8 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState('')
   const [Verifying, setVerifying] = useState(false)
   const [combined, setCombined] = useState<CompoundBid[]>([])
-  const [proof, setProof] = useState<string>()
+  const [commitment, setCommitment] = useState<string>()
+  const [winningAleoRecord, setWinningAleoRecord] = useState<string>()
 
   interface CompoundBid {
     value: number | string,
@@ -62,7 +62,7 @@ export default function App() {
     })
   }
 
-  const contractVerification = async () => {
+  const verifyWithBackend = async () => {
     setVerified(false)
     setError(false)
     setVerifying(true)
@@ -78,18 +78,26 @@ export default function App() {
 
     const abi = { all_bids, secrets, commitments  }
     console.log(abi)
-    let proof = await generate_proof(abi).catch((error: any) => {
+    // Verify cool zk winner of nothing with Aztec Noir backend
+    let commitmentResponse = await generate_proof(abi).catch((error: any) => {
       setErrorMsg(error.toString())
       setError(true)
       setVerifying(false)
     })
 
-    if (proof) {
-      setVerified(true)
-      setProof(proof)
+    const aleoResData = await generateAleoResponse(abi)
+    
+    if (aleoResData.winning_commitment !== commitmentResponse) {
+      setErrorMsg('Aleo and Aztec determined different winners... OOPSIE!')
+      setError(true)
     }
 
+    if (commitmentResponse && aleoResData) {
+      setVerified(true)
+      setCommitment(commitmentResponse)
+    }
 
+    setWinningAleoRecord(aleoResData.winning_record)
     setVerifying(false)
   }
 
@@ -120,22 +128,34 @@ export default function App() {
         <div>
           <h1 className='text-white text-4xl font-sans font-medium text-green-500'>ZBay</h1>
           <br />
-          <Input value={bid.value} onChange={bid.onChange} type='number' className='bg-slate-800 border-none focus:bg-slate-600 transition-all' />
+          <Input
+            value={bid.value}
+            onChange={bid.onChange}
+            type='number'
+            className='bg-slate-800 border-none focus:bg-slate-600 transition-all'
+          />
           <div className='flex flex-row justify-center m-5 space-x-2'>
             <Button onClick={placeBid} className={btnStyle} text='Place Bid' />
-            <Button onClick={contractVerification} className={btnStyle} text='Prove + verify' />
+            <Button onClick={verifyWithBackend} className={btnStyle} text='Prove + verify' />
             <Button onClick={reloadCommitments} className={btnStyle} text='Reload Commitments' />
           </div>
-          {/*{Verifying ? <Loading text='Verifying proof...' /> : <div />}*/}
           {error ? <p className='text-red text-left'>{errorMsg}</p> : <div />}
-          {/*{verified ? <p className='text-green text-left'>Verified!</p> : <div />}*/}
         </div>
         <div className='p-8 bg-slate-800 rounded-lg text-green-600 space-y-5 text-xs'>
           {combined.map(combinedBid => (
-            <ThreeTextRow t1={'$' + combinedBid.value} t2={'secret: ' + combinedBid.secret} t3={'commitment: ' + combinedBid.hash}></ThreeTextRow>
+            <ThreeTextRow
+              t1={'$' + combinedBid.value}
+              t2={'secret: ' + combinedBid.secret}
+              t3={'commitment: ' + combinedBid.hash}
+            ></ThreeTextRow>
           ))}
         </div>
-        <p className='p-8 bg-slate-800 rounded-lg text-green-600 space-y-5 text-xs mt-5 max-w-xl mx-auto'>{proof && `Winner: ${proof}`}</p>
+        <p className='p-8 bg-slate-800 rounded-lg text-green-600 space-y-5 text-xs mt-5 max-w-xl mx-auto'>
+          Noir -- {commitment && `Winner's commitment hash: ${commitment}`}
+        </p>
+          <p className='p-8 bg-slate-800 rounded-lg text-green-600 space-y-5 text-xs mt-5 max-w-xl mx-auto'>
+            Leo -- {verified && `Winner's Leo record: ${winningAleoRecord}`}
+          </p>
       </div>
       <WalletConnector />
     </>

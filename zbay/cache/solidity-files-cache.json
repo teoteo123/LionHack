@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/theo/Projects/Buildathon/zk_auction_minimal/contracts/Auction.sol": {
+    "/Users/theo/Projects/LionHack/zbay/contracts/Auction.sol": {
       "lastModificationDate": 1681172480380,
       "contentHash": "73ab25a1ae04d126fe90efdd9c99b1ff",
       "sourceName": "contracts/Auction.sol",
@@ -36,7 +36,7 @@
         "Auction"
       ]
     },
-    "/Users/theo/Projects/Buildathon/zk_auction_minimal/contracts/Verifier.sol": {
+    "/Users/theo/Projects/LionHack/zbay/contracts/Verifier.sol": {
       "lastModificationDate": 1681149783377,
       "contentHash": "e512544c28f25a794e9d2a761cf5157c",
       "sourceName": "contracts/Verifier.sol",
